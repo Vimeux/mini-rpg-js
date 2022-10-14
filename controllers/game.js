@@ -1,5 +1,7 @@
 import Monster from "../models/monster.js";
 import Wizard from "../models/wizard.js";
+import attackLogger from "../utils/logger.js";
+import logger from "../utils/logger.js"; 
 
 const perso = new Wizard("Gandalf", 100, 10, 1, 100, 100);
 const enemy = new Monster("Smaug", 100, 10, 1, 100, 100);
@@ -58,12 +60,16 @@ async function attack(character, enemy) {
     document.getElementById("character-energy").style.width = character.getEnergie() + "%";
     document.getElementById("monster-hp").style.width = enemy.getHealth() + "%";
     // log attack points
-    console.log(character.name + " attaque " + enemy.name + " avec " + character.getEnergie() + " points d'énergie");
+    // console.log(character.name + " attaque " + enemy.name + " avec " + character.getEnergie() + " points d'énergie");
+    attackLogger(character.name, character.health, character.xp, character.energie)
+
   } else {
     document.getElementById("character-hp").style.width = character.getHealth() + "%";
     document.getElementById("monster-energy").style.width = enemy.getEnergie() + "%";
     // log attack points
-    console.log(character.name + " attaque " + enemy.name + " avec " + enemy.getEnergie() + " points d'énergie");
+    // console.log(character.name + " attaque " + enemy.name + " avec " + enemy.getEnergie() + " points d'énergie");
+    attackLogger(character.name, character.health, character.xp, character.energie)
+
   }
   // document.getElementById("monster-hp").style.width = enemy.getHealth() + "%";
   // document.getElementById("character-energy").style.width = character.getEnergie() + "%";
@@ -75,7 +81,9 @@ async function spell(character, enemy) {
   document.getElementById("monster-hp").style.width = enemy.getHealth() + "%";
   document.getElementById("character-mana").style.width = character.getMana() + "%";
   // log attack points
-  console.log(character.name + " attaque " + enemy.name + " avec " + character.getMana() + " points de mana");
+  // console.log(character.name + " attaque " + enemy.name + " avec " + character.getMana() + " points de mana");
+  attackLogger(character.name, character.health, character.xp, character.energie)
+
 }
 
 while (perso.getHealth() > 0 && enemy.getHealth() > 0) {
