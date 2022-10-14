@@ -1,0 +1,343 @@
+/*GLOBAL*/
+
+body {
+  background-color: black;
+  background-size: cover;
+}
+
+h1 {
+  color: purple;
+  text-align: center;
+}
+
+h1,
+h2,
+h3,
+h4,
+p {
+  font-family: "VT323", monospace;
+}
+
+.btn {
+  background-color: purple;
+  color: white;
+  border-radius: 8px;
+  border: none;
+  border-bottom: 7px solid #600760;
+  padding: 5px 15px 5px 15px;
+  font-size: 2vw;
+  margin: 5px;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background-color: #f62cf6;
+  border-color: #cb07cb;
+}
+
+.btn:active {
+  background-color: #600760;
+  border-color: #600760;
+}
+
+.btn-spell img {
+  height: 25px;
+  width: auto;
+}
+
+/* CHOIX PERSO */
+
+#inscription-bloc {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transition: opacity 1s;
+}
+
+#persoName {
+  background-color: purple;
+  color: white;
+  padding: 10px;
+  font-size: 1.5vw;
+  border: none;
+  border: 4px inset #600760;
+}
+
+#perso-select__container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+}
+
+.perso-select__card {
+  height: 190px;
+  width: 220px;
+  margin: 40px;
+  background-repeat: no-repeat;
+  border: 5px solid purple;
+  border-radius: 10px;
+  transition: all 0.6s;
+  cursor: pointer;
+}
+
+.perso-select__card--selected {
+  transform: scale(1.2);
+}
+
+.perso-select__card:hover {
+  transform: scale(1.2);
+}
+
+.perso-select__card::after {
+  content: " ";
+  background-size: contain;
+  position: absolute;
+  bottom: 0;
+  background-repeat: no-repeat;
+  height: 100px;
+  width: 100px;
+}
+
+/*GAME*/
+
+.game {
+  background-image: url(./img/map1.png);
+  background-size: cover;
+  height: 100vh;
+}
+
+#game-bloc {
+  width: 80%;
+  height: 200px;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+}
+
+#character-bloc,
+#monster-bloc {
+  width: 200px;
+  height: 200px;
+  margin-left: 50px;
+  margin-right: 50px;
+  transform: scale(1.5);
+  transition: 0.6s all;
+  position: relative;
+}
+
+#monster-bloc {
+  width: 90px;
+}
+
+#character-hp__container,
+#monster-hp__container {
+  content: " ";
+  position: absolute;
+  width: 100px;
+  height: 10px;
+  background-color: black;
+  top: 0;
+  left: 0;
+}
+
+#character-hp,
+#monster-hp {
+  content: " ";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: red;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+#character-energy__container,
+#monster-energy__container {
+  content: " ";
+  position: absolute;
+  width: 100px;
+  height: 10px;
+  background-color: black;
+  top: -10px;
+  left: 0;
+}
+
+#character-energy,
+#monster-energy {
+  content: " ";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: blue;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+#character-mana__container {
+  content: " ";
+  position: absolute;
+  width: 100px;
+  height: 10px;
+  background-color: black;
+  top: -20px;
+  left: 0;
+}
+
+#character-mana {
+  content: " ";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: purple;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+/* ACTION BLOC */
+
+#infos-bloc {
+  position: fixed;
+  left: 100px;
+  bottom: 100px;
+  display: flex;
+  justify-content: space-between;
+}
+
+#actions-bloc {
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 30px;
+  display: flex;
+}
+
+#spell-bloc,
+#counter-bloc,
+#log-bloc {
+  padding: 30px;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 30px;
+  display: flex;
+  justify-content: center;
+  color: white;
+  margin: 10px;
+}
+
+#log-bloc {
+  width: 30vw;
+}
+
+/* ANIMATIONS */
+
+.wizardIdle {
+  animation: wizardIdle 1.2s steps(6) infinite;
+  background-size: auto;
+  background: url("./img/Idle.png") left center;
+  background-repeat: no-repeat;
+}
+
+@keyframes wizardIdle {
+  100% {
+    background-position: -1386px;
+  }
+}
+
+.monsterdIdle {
+  animation: monsterdIdle 1.2s steps(9) infinite;
+  background-size: auto;
+  background: url("./img/IdleMonster.png") left center;
+  background-repeat: no-repeat;
+}
+
+@keyframes monsterdIdle {
+  100% {
+    background-position: -810px;
+  }
+}
+
+.animAttack {
+  animation: animAttack 0.5s steps(8) infinite;
+  background-size: auto;
+  background: url("./img/Run.png") left center;
+  background-repeat: no-repeat;
+}
+
+@keyframes animAttack {
+  100% {
+    background-position: -1848px;
+  }
+}
+
+.animAttack2 {
+  animation: animAttack2 0.5s steps(8);
+  background-size: auto;
+  background: url("./img/Attack2.png") left center;
+  background-repeat: no-repeat;
+}
+
+@keyframes animAttack2 {
+  100% {
+    background-position: -1848px;
+  }
+}
+
+.animAttack3 {
+  animation: animAttack3 800s steps(8) infinite;
+  background-size: auto;
+  background: url("./img/Run2.png") left center;
+  background-repeat: no-repeat;
+}
+
+@keyframes animAttack3 {
+  100% {
+    background-position: -736px;
+  }
+}
+
+.animDeath {
+  animation: animDeath 1.2s steps(7);
+  background-size: auto;
+  background: url("./img/Death.png") left center;
+  background-repeat: no-repeat;
+}
+
+@keyframes animDeath {
+  100% {
+    background-position: -1617px;
+  }
+}
+
+.animHitMonster {
+  animation: animHitMonster 1.2s steps(3);
+  background-size: auto;
+  background: url("./img/hitmonster.png") left center;
+  background-repeat: no-repeat;
+}
+
+@keyframes animHitMonster {
+  100% {
+    background-position: -270px;
+  }
+}
+
+.animAttackMonster {
+  animation: animAttackMonster 1.2s steps(16);
+  background-size: auto;
+  background: url("./img/Attack.png") left center;
+  background-repeat: no-repeat;
+}
+
+@keyframes animAttackMonster {
+  100% {
+    background-position: -1440px;
+  }
+}
