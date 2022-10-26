@@ -59,29 +59,37 @@ async function attack(character, enemy) {
   if (character instanceof Wizard) {
     document.getElementById("character-energy").style.width = character.getEnergie() + "%";
     document.getElementById("monster-hp").style.width = enemy.getHealth() + "%";
-    // log attack points
-    // console.log(character.name + " attaque " + enemy.name + " avec " + character.getEnergie() + " points d'énergie");
+
+    perso.move(1);
+    document.getElementById("character-bloc").style.right =
+    perso.position + "rem";
+
+    document.getElementById("character-bloc").classList.remove("wizardIdle");
+    document.getElementById("character-bloc").classList.add("wizardRun");
+
     attackLogger(character.name, character.health, character.xp, character.energie)
 
   } else {
     document.getElementById("character-hp").style.width = character.getHealth() + "%";
     document.getElementById("monster-energy").style.width = enemy.getEnergie() + "%";
-    // log attack points
-    // console.log(character.name + " attaque " + enemy.name + " avec " + enemy.getEnergie() + " points d'énergie");
+
+    perso.move(-1);
+    document.getElementById("character-bloc").style.right =
+      perso.position + "rem";
+
+    document.getElementById("character-bloc").classList.add("wizardRun");
+    // document.getElementById("character-bloc").classList.remove("wizardIdle");
+
     attackLogger(character.name, character.health, character.xp, character.energie)
 
   }
-  // document.getElementById("monster-hp").style.width = enemy.getHealth() + "%";
-  // document.getElementById("character-energy").style.width = character.getEnergie() + "%";
-  // console.log(character.name + " attaque " + enemy.name);
 }
 
 async function spell(character, enemy) {
   character.spell(enemy);
   document.getElementById("monster-hp").style.width = enemy.getHealth() + "%";
   document.getElementById("character-mana").style.width = character.getMana() + "%";
-  // log attack points
-  // console.log(character.name + " attaque " + enemy.name + " avec " + character.getMana() + " points de mana");
+
   attackLogger(character.name, character.health, character.xp, character.energie)
 
 }
@@ -99,6 +107,7 @@ while (perso.getHealth() > 0 && enemy.getHealth() > 0) {
       resolve();
     }));
   });
+
 
   // wait 1s
   await new Promise((resolve) => setTimeout(resolve, 1000));
