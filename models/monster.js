@@ -1,8 +1,7 @@
 export default class Monster {
-  constructor(name, health, mana, xp, xpMax, energie) {
+  constructor(name, health, xp, xpMax, energie) {
     this.name = name;
     this.health = health;
-    this.mana = mana;
     this.xp = xp;
     this.xpMax = xpMax;
     this.energie = energie;
@@ -13,9 +12,6 @@ export default class Monster {
   }
   getHealth() {
     return this.health;
-  }
-  getMana() {
-    return this.mana;
   }
   getXp() {
     return this.xp;
@@ -33,9 +29,6 @@ export default class Monster {
   setHealth(health) {
     this.health = health;
   }
-  setMana(mana) {
-    this.mana = mana;
-  }
   setXp(xp) {
     this.xp = xp;
   }
@@ -46,12 +39,21 @@ export default class Monster {
     this.energie = energie;
   }
   //methods
+  loseHealth(health) {
+    this.health -= health;
+  }
+
   attack(character) {
+    // if energy >= 20
     if (this.energie >= 10) {
-      character.health -= 10;
+      character.loseHealth(10);
       this.energie -= 10;
       // xp + 10
-      this.gainXp(10);
+      this.xp += 10;
+      // if xp >= xpMax
+      if (this.xp >= this.xpMax) {
+        this.levelUp();
+      }
     }
   }
   levelUp() {

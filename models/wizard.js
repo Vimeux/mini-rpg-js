@@ -20,7 +20,7 @@ export default class Wizard extends Character {
   }
 
   spell(character) {
-    character.health -= 20;
+    character.loseHealth(20);
     this.mana -= 20;
     // xp + 20
     this.xp += 20;
