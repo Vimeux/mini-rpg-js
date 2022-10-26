@@ -24,6 +24,17 @@ const attack = (character, monster) => {
     if (character instanceof Wizard) {
       document.getElementById("character-energy").style.width = character.getEnergie() + "%";
       document.getElementById("monster-hp").style.width = monster.getHealth() + "%";
+
+      perso.move(1);
+      document.getElementById("character-bloc").style.right = perso.position + "rem";
+      document.getElementById("character-bloc").classList.remove("wizardIdle");
+      document.getElementById("character-bloc").classList.add("wizardRun");
+
+      setTimeout(() => {
+        document.getElementById("character-bloc").classList.remove("wizardRun");
+        document.getElementById("character-bloc").classList.add("wizardIdle");
+      }, 1000);
+
       // log attack points
       // console.log(character.name + " attaque " + monster.name + ", il lui reste " + character.getEnergie() + " points d'énergie");
       attackLogger(character.name, character.health, character.xp, character.energie)
@@ -45,7 +56,7 @@ const spell = (character, monster) => {
     document.getElementById("character-mana").style.width = character.getMana() + "%";
     // log attack points
     console.log(character.name + " attaque " + monster.name + ", il lui reste " + character.getMana() + " points de mana");
-    
+
     attackLogger(character.name, character.health, character.xp, character.energie)
   }, 100);
 }
