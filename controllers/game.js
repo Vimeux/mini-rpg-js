@@ -11,25 +11,8 @@ const attackButton = document.getElementById("spell2");
 const nextButton = document.getElementById("next");
 
 console.log(monster.getHealth());
-// perso.attack(monster);
 console.log(monster.getHealth());
 
-// async function attack(character, monster) {
-//   character.attack(monster);
-//   if (character instanceof Wizard) {
-//     document.getElementById("character-energy").style.width = character.getEnergie() + "%";
-//     document.getElementById("monster-hp").style.width = monster.getHealth() + "%";
-//     // log attack points
-//     console.log(character.name + " attaque " + monster.name + ", il lui reste " + character.getEnergie() + " points d'énergie");
-//     attackLogger(character.name, character.health, character.xp, character.energie)
-//   } else {
-//     document.getElementById("character-hp").style.width = character.getHealth() + "%";
-//     document.getElementById("monster-energy").style.width = monster.getEnergie() + "%";
-//     // log attack points
-//     console.log(character.name + " attaque " + monster.name + ", il lui reste " + monster.getEnergie() + " points d'énergie");
-//     attackLogger(character.name, character.health, character.xp, character.energie)
-//   }
-// }
 
 const win = (character, monster) => {
   console.log("win");
@@ -62,6 +45,7 @@ const spell = (character, monster) => {
     document.getElementById("character-mana").style.width = character.getMana() + "%";
     // log attack points
     console.log(character.name + " attaque " + monster.name + ", il lui reste " + character.getMana() + " points de mana");
+    
     attackLogger(character.name, character.health, character.xp, character.energie)
   }, 100);
 }
@@ -122,6 +106,7 @@ const turn = async (character, monster) => {
     });
   }
 }
+
 
 // game loop, wait end of turn to start a new one
 const gameLoop = (character, monster) => {

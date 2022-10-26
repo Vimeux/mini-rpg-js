@@ -66,4 +66,6 @@ export default class Monster {
       this.levelUp();
     }
   }
+
+
 }

@@ -100,6 +100,27 @@ p {
   width: 100px;
 }
 
+.logger textarea {
+  display: flex;
+  width: 400px;
+  background-color: #ffffff00;
+  color: white;
+  border-color: #ffffff00;
+}
+
+.wizardRun {
+  animation: wizardIdle 1.2s steps(6) infinite;
+  background-size: auto;
+  background: url("./img/Idle.png") left center;
+  background-repeat: no-repeat;
+  left: 350px;
+}
+
+@keyframes wizardRun {
+  100% {
+    /* background-position: 350px; */
+  }
+}
 /*GAME*/
 
 .game {

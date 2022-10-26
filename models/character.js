@@ -78,4 +78,9 @@ export class Character {
   loseEnergie(energie) {
     this.energie -= energie;
   }
+
+  //methods
+  move($sens) {
+    this.position += $sens;
+  }
 }
