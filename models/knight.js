@@ -1,4 +1,4 @@
-import { Character } from "./character";
+import { Character } from "./character.js";
 
 export default class Knight extends Character {
   constructor(name, health, mana, xp, xpMax, energie) {

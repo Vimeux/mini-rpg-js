@@ -1,48 +1,50 @@
 import Monster from "../models/monster.js";
 import Wizard from "../models/wizard.js";
+import Knight from "../models/knight.js";
 import attackLogger from "../utils/logger.js";
-import logger from "../utils/logger.js";
 
-const perso = new Wizard("Gandalf", 100, 100, 1, 100, 100);
+// if in localstorage, persoId is type1, create a new Wizard or a niew knight
+const perso = localStorage.getItem("persoId") === "type1" ? new Wizard(localStorage.getItem("persoName"), 100, 100, 1, 100, 100) : new Knight(localStorage.getItem("persoName"), 100, 0, 1, 50, 100);
+const cssClassIdle = localStorage.getItem("persoId") === "type1" ? "wizardIdle" : "knightIdle";
+const cssClassRun = localStorage.getItem("persoId") === "type1" ? "wizardRun" : "knightRun";
+document.getElementById("character-bloc").classList.replace("wizardIdle", cssClassIdle);
+// if knight, render spell button unclickable
+if (localStorage.getItem("persoId") === "type2") {
+  document.getElementById("spell1").style.pointerEvents = "none";
+  document.getElementById("spell1").style.opacity = "0.5";
+}
+
+
+// const perso = new Wizard("Gandalf", 100, 100, 1, 100, 100);
 const monster = new Monster("Smaug", 100, 1, 100, 100);
 
 const spellButton = document.getElementById("spell1");
 const attackButton = document.getElementById("spell2");
 const nextButton = document.getElementById("next");
 
-console.log(monster.getHealth());
-console.log(monster.getHealth());
-
-
-const win = (character, monster) => {
-  console.log("win");
-}
-
 const attack = (character, monster) => {
   setTimeout(() => {
     character.attack(monster);
-    if (character instanceof Wizard) {
+    if (character instanceof Wizard || character instanceof Knight) {
       document.getElementById("character-energy").style.width = character.getEnergie() + "%";
       document.getElementById("monster-hp").style.width = monster.getHealth() + "%";
 
       perso.move(1);
       document.getElementById("character-bloc").style.right = perso.position + "rem";
-      document.getElementById("character-bloc").classList.remove("wizardIdle");
-      document.getElementById("character-bloc").classList.add("wizardRun");
+      document.getElementById("character-bloc").classList.remove(cssClassIdle);
+      document.getElementById("character-bloc").classList.add(cssClassRun);
 
       setTimeout(() => {
-        document.getElementById("character-bloc").classList.remove("wizardRun");
-        document.getElementById("character-bloc").classList.add("wizardIdle");
-      }, 1000);
+        document.getElementById("character-bloc").classList.remove(cssClassRun);
+        document.getElementById("character-bloc").classList.add(cssClassIdle);
+      }, 500);
 
       // log attack points
       // console.log(character.name + " attaque " + monster.name + ", il lui reste " + character.getEnergie() + " points d'énergie");
       attackLogger(character.name, character.health, character.xp, character.energie)
     } else {
-      document.getElementById("character-hp").style.width = character.getHealth() + "%";
-      document.getElementById("monster-energy").style.width = monster.getEnergie() + "%";
-      // log attack points
-      console.log(character.getHealth());
+      document.getElementById("monster-energy").style.width = character.getEnergie() + "%";
+      document.getElementById("character-hp").style.width = monster.getHealth() + "%";
       // console.log(character.name + " attaque " + monster.name + ", il lui reste " + monster.getEnergie() + " points d'énergie");
       attackLogger(character.name, character.health, character.xp, character.energie)
     }
@@ -51,19 +53,30 @@ const attack = (character, monster) => {
 
 const spell = (character, monster) => {
   setTimeout(() => {
-    character.spell(monster);
-    document.getElementById("monster-hp").style.width = monster.getHealth() + "%";
-    document.getElementById("character-mana").style.width = character.getMana() + "%";
-    // log attack points
-    console.log(character.name + " attaque " + monster.name + ", il lui reste " + character.getMana() + " points de mana");
+    if (character instanceof Wizard) {
+      character.spell(monster);
+      console.log(character.name);
+      document.getElementById("monster-hp").style.width = monster.getHealth() + "%";
+      document.getElementById("character-mana").style.width = character.getMana() + "%";
 
-    attackLogger(character.name, character.health, character.xp, character.energie)
+      document.getElementById("character-bloc").style.right = perso.position + "rem";
+      document.getElementById("character-bloc").classList.remove(cssClassIdle);
+      document.getElementById("character-bloc").classList.add("wizardSpell");
+
+      setTimeout(() => {
+        document.getElementById("character-bloc").classList.remove("wizardSpell");
+        document.getElementById("character-bloc").classList.add(cssClassIdle);
+      }, 500);
+      // log attack points
+
+      attackLogger(character.name, character.health, character.xp, character.energie)
+    }
   }, 100);
 }
 
 // player and monster attack turn by turn
 const turn = async (character, monster) => {
-  if (character instanceof Wizard) {
+  if (character instanceof Wizard || character instanceof Knight) {
     // if player click on spell1 button, spell1 is casted
     // console.log("turn");
     return new Promise((resolve, reject) => {
@@ -71,13 +84,15 @@ const turn = async (character, monster) => {
       spellButton.addEventListener("click", (e) => {
         e.stopPropagation();
         spell(character, monster);
+        console.log("spell");
         // wait end of last action to check if win or not
         setTimeout(() => {
           if (monster.getHealth() <= 0) {
             alert("You win");
-            resolve("win");
+            window.location.href = "index.html";
+            return
           }
-        }, 1000);
+        }, 100);
         resolve();
       }, { once: true });
       // listen click on attack button without event bubbling
@@ -88,7 +103,8 @@ const turn = async (character, monster) => {
         setTimeout(() => {
           if (monster.getHealth() <= 0) {
             alert("You win");
-            resolve("win");
+            window.location.href = "index.html";
+            return
           }
         }, 1000);
         resolve();
@@ -109,7 +125,8 @@ const turn = async (character, monster) => {
           setTimeout(() => {
             if (character.getHealth() <= 0) {
               alert("Game Over");
-              resolve("lose");
+              window.location.href = "index.html";
+              return
             }
           }, 1000);
         }, 1000);
@@ -130,8 +147,10 @@ const gameLoop = (character, monster) => {
   } else {
     if (character.getHealth() <= 0) {
       console.log("Game Over");
+      window.location.href = "index.html";
     } else {
       console.log("You win");
+      window.location.href = "index.html";
     }
   }
 }

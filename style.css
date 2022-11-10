@@ -109,16 +109,43 @@ p {
 }
 
 .wizardRun {
-  animation: wizardIdle 1.2s steps(6) infinite;
+  animation: wizardRun 0.5s steps(8);
   background-size: auto;
-  background: url("./img/Idle.png") left center;
+  background: url("./img/Attack1.png") left center;
   background-repeat: no-repeat;
   left: 350px;
 }
 
 @keyframes wizardRun {
   100% {
-    /* background-position: 350px; */
+    background-position: -1848px;
+  }
+}
+
+.wizardSpell {
+  animation: wizardSpell 0.5s steps(8);
+  background-size: auto;
+  background: url("./img/Attack2.png") left center;
+  background-repeat: no-repeat;
+}
+
+@keyframes wizardSpell {
+  100% {
+    background-position: -1848px;
+  }
+}
+
+.knightRun {
+  animation: knightRun 0.5s steps(6) infinite;
+  background-size: auto;
+  background: url("./img/KnightAttack.png") left center;
+  background-repeat: no-repeat;
+  left: calc(100% - 400px);
+}
+
+@keyframes knightRun {
+  100% {
+    background-position: -1176px;
   }
 }
 /*GAME*/
@@ -150,7 +177,7 @@ p {
   margin-left: 50px;
   margin-right: 50px;
   transform: scale(1.5);
-  transition: 0.6s all;
+  /* transition: 0.6s all; */
   position: relative;
 }
 
@@ -272,6 +299,19 @@ p {
   }
 }
 
+.knightIdle {
+  animation: knightIdle 1.2s steps(11) infinite;
+  background-size: auto;
+  background: url("./img/IdleKnight.png") left center;
+  background-repeat: no-repeat;
+}
+
+@keyframes knightIdle {
+  100% {
+    background-position: -2436px;
+  }
+}
+
 .monsterdIdle {
   animation: monsterdIdle 1.2s steps(9) infinite;
   background-size: auto;
@@ -312,15 +352,15 @@ p {
 }
 
 .animAttack3 {
-  animation: animAttack3 800s steps(8) infinite;
+  animation: animAttack3 0.5s steps(8) infinite;
   background-size: auto;
-  background: url("./img/Run2.png") left center;
+  background: url("./img/RunKnight.png") left center;
   background-repeat: no-repeat;
 }
 
 @keyframes animAttack3 {
   100% {
-    background-position: -736px;
+    background-position: -1668px;
   }
 }
 
